@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"
+     role="img" aria-label="Medalha de acerto">
+  <title>Medalha de acerto</title>
+
+  <defs>
+    <radialGradient id="goldGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#fff3b0"/>
+      <stop offset="55%" stop-color="#ffc107"/>
+      <stop offset="100%" stop-color="#a97e00"/>
+    </radialGradient>
+    <radialGradient id="centerBlue" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#1565c0"/>
+      <stop offset="100%" stop-color="#0d47a1"/>
+    </radialGradient>
+    <linearGradient id="ribbonCyan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4dd0e1"/>
+      <stop offset="100%" stop-color="#00acc1"/>
+    </linearGradient>
+    <linearGradient id="ribbonBlue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1565c0"/>
+      <stop offset="100%" stop-color="#0d47a1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fitas -->
+  <path d="M 72 148 L 62 200 L 82 190 L 92 200 L 100 148 Z" fill="url(#ribbonCyan)"/>
+  <path d="M 128 148 L 138 200 L 118 190 L 108 200 L 100 148 Z" fill="url(#ribbonBlue)"/>
+
+  <!-- Círculo externo dourado -->
+  <circle cx="100" cy="100" r="82" fill="url(#goldGrad)"
+          stroke="#a97e00" stroke-width="2"/>
+
+  <!-- Anéis decorativos -->
+  <circle cx="100" cy="100" r="72" fill="none"
+          stroke="#fff3b0" stroke-width="2" opacity="0.7"/>
+  <circle cx="100" cy="100" r="70" fill="none"
+          stroke="#a97e00" stroke-width="1" opacity="0.5"/>
+
+  <!-- Círculo interno azul -->
+  <circle cx="100" cy="100" r="62" fill="url(#centerBlue)"
+          stroke="#002171" stroke-width="2"/>
+
+  <!-- Raio central -->
+  <polygon points="108,58 78,104 100,104 92,142 122,96 100,96"
+           fill="#ffc107" stroke="#c79100" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="105,64 82,102 100,102 94,132 118,96 100,96"
+           fill="#fff3b0" opacity="0.5"/>
+
+  <!-- Raios decorativos -->
+  <g stroke="#ffc107" stroke-width="2" stroke-linecap="round" opacity="0.85">
+    <line x1="100" y1="40" x2="100" y2="46"/>
+    <line x1="140" y1="60" x2="136" y2="64"/>
+    <line x1="160" y1="100" x2="154" y2="100"/>
+    <line x1="140" y1="140" x2="136" y2="136"/>
+    <line x1="100" y1="160" x2="100" y2="154"/>
+    <line x1="60" y1="140" x2="64" y2="136"/>
+    <line x1="40" y1="100" x2="46" y2="100"/>
+    <line x1="60" y1="60" x2="64" y2="64"/>
+  </g>
+
+  <!-- Faíscas -->
+  <g fill="#fff3b0" opacity="0.9">
+    <circle cx="52" cy="56" r="2.5"/>
+    <circle cx="148" cy="56" r="2.5"/>
+    <circle cx="46" cy="140" r="2"/>
+    <circle cx="154" cy="140" r="2"/>
+  </g>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"
+     role="img" aria-label="Prof. Volts">
+  <title>Prof. Volts — professor-guia de Eletrônica em Ação</title>
+  <desc>Professor jovem com cabelo cacheado, óculos e camiseta com estampa de circuito.</desc>
+
+  <defs>
+    <linearGradient id="pvShirt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1565c0"/>
+      <stop offset="100%" stop-color="#0d47a1"/>
+    </linearGradient>
+    <radialGradient id="pvFace" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#f0c194"/>
+      <stop offset="100%" stop-color="#d99a6b"/>
+    </radialGradient>
+    <radialGradient id="pvBg" cx="50%" cy="42%" r="60%">
+      <stop offset="0%" stop-color="#eaf2fc"/>
+      <stop offset="100%" stop-color="#c9ddf5"/>
+    </radialGradient>
+    <clipPath id="pvClip"><circle cx="100" cy="100" r="96"/></clipPath>
+  </defs>
+
+  <circle cx="100" cy="100" r="98" fill="#eaf2fc"/>
+  <g clip-path="url(#pvClip)">
+    <circle cx="100" cy="100" r="96" fill="url(#pvBg)"/>
+
+    <!-- Corpo / camiseta -->
+    <path d="M 14 200 Q 14 152, 100 144 Q 186 152, 186 200 Z" fill="url(#pvShirt)"/>
+    <path d="M 84 146 L 100 172 L 116 146"
+          fill="none" stroke="#f5f7fa" stroke-width="4" stroke-linejoin="round"/>
+
+    <!-- Estampa de circuito na camiseta -->
+    <g stroke="#4dd0e1" stroke-width="1.5" fill="none" opacity="0.85">
+      <path d="M 60 170 L 60 180 L 75 180"/>
+      <circle cx="60" cy="170" r="2" fill="#4dd0e1"/>
+      <circle cx="75" cy="180" r="2" fill="#4dd0e1"/>
+      <path d="M 140 175 L 140 188 L 125 188"/>
+      <circle cx="140" cy="175" r="2" fill="#4dd0e1"/>
+      <circle cx="125" cy="188" r="2" fill="#4dd0e1"/>
+    </g>
+
+    <!-- Pescoço -->
+    <path d="M 87 118 L 87 150 L 113 150 L 113 118 Z" fill="#c98a5d"/>
+
+    <!-- Orelhas -->
+    <ellipse cx="60" cy="110" rx="7" ry="10" fill="#d99a6b"/>
+    <ellipse cx="140" cy="110" rx="7" ry="10" fill="#d99a6b"/>
+
+    <!-- Rosto -->
+    <ellipse cx="100" cy="105" rx="42" ry="46" fill="url(#pvFace)"/>
+
+    <!-- Cabelo cacheado (atrás) -->
+    <g fill="#3a2510">
+      <circle cx="66" cy="80" r="13"/>
+      <circle cx="80" cy="66" r="14"/>
+      <circle cx="100" cy="60" r="14"/>
+      <circle cx="120" cy="66" r="14"/>
+      <circle cx="134" cy="80" r="13"/>
+      <circle cx="58" cy="94" r="10"/>
+      <circle cx="142" cy="94" r="10"/>
+    </g>
+
+    <!-- Cachos frontais -->
+    <g fill="#4a3018">
+      <circle cx="78" cy="78" r="9"/>
+      <circle cx="100" cy="72" r="9"/>
+      <circle cx="122" cy="78" r="9"/>
+    </g>
+
+    <!-- Sobrancelhas -->
+    <path d="M 74 96 Q 84 92, 92 96"
+          stroke="#3a2510" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 108 96 Q 116 92, 126 96"
+          stroke="#3a2510" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- Olhos -->
+    <ellipse cx="83" cy="110" rx="4" ry="4.5" fill="#1a2332"/>
+    <ellipse cx="117" cy="110" rx="4" ry="4.5" fill="#1a2332"/>
+    <circle cx="84.5" cy="108.5" r="1.4" fill="#f5f7fa"/>
+    <circle cx="118.5" cy="108.5" r="1.4" fill="#f5f7fa"/>
+
+    <!-- Óculos -->
+    <circle cx="83" cy="110" r="14" fill="none" stroke="#0d47a1" stroke-width="2.5"/>
+    <circle cx="117" cy="110" r="14" fill="none" stroke="#0d47a1" stroke-width="2.5"/>
+    <line x1="97" y1="110" x2="103" y2="110" stroke="#0d47a1" stroke-width="2.5"/>
+    <line x1="69" y1="108" x2="60" y2="106" stroke="#0d47a1" stroke-width="2.5"/>
+    <line x1="131" y1="108" x2="140" y2="106" stroke="#0d47a1" stroke-width="2.5"/>
+
+    <!-- Nariz -->
+    <path d="M 100 118 Q 96 127, 103 129"
+          stroke="#a86a45" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+    <!-- Bochechas -->
+    <circle cx="70" cy="124" r="6" fill="#d97a5a" opacity="0.35"/>
+    <circle cx="130" cy="124" r="6" fill="#d97a5a" opacity="0.35"/>
+
+    <!-- Sorriso -->
+    <path d="M 87 140 Q 100 152, 113 140"
+          stroke="#8a3a3a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+  <circle cx="100" cy="100" r="98" fill="none" stroke="#0d47a1" stroke-width="3.5"/>
+</svg>
