@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Dirceu Nogueira de Sales Duarte Junior">
+<meta name="robots" content="noindex, nofollow">
+<title>Suíte de Testes — LDI Formação de Professores Autores e Formadores para EaD — UFU</title>
+
+<style>
+  :root {
+    --bg: #f7f4ee;
+    --surface: #ffffff;
+    --surface-alt: #f0ebdf;
+    --text: #1e1a12;
+    --text-muted: #5a5142;
+    --primary: #1b3a6b;
+    --primary-dark: #0f2547;
+    --accent: #c9a227;
+    --secondary: #2e8b57;
+    --danger: #b23a3a;
+    --purple: #6b4a8a;
+    --border: #e0d8c4;
+    --border-strong: #c8bda6;
+    --radius: 8px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+            "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 24px 16px 80px;
+    font-family: var(--font);
+    line-height: 1.6;
+    color: var(--text);
+    background-color: var(--bg);
+    font-size: 16px;
+  }
+
+  .container { max-width: 960px; margin: 0 auto; }
+
+  header.page-header {
+    text-align: center;
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+    border-bottom: 3px double var(--border-strong);
+  }
+
+  header.page-header h1 {
+    margin: 0 0 8px;
+    font-size: 1.75rem;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+  }
+
+  header.page-header .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  header.page-header .version {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 12px;
+    background-color: var(--surface-alt);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 640px) {
+    .summary { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .summary-item {
+    background-color: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    text-align: center;
+  }
+
+  .summary-item .number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+    font-family: var(--font-mono);
+  }
+
+  .summary-item .label {
+    display: block;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .summary-item.total .number { color: var(--primary); }
+  .summary-item.passed .number { color: var(--secondary); }
+  .summary-item.failed .number { color: var(--danger); }
+  .summary-item.time .number { color: var(--purple); font-size: 1.5rem; }
+
+  .action-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-family: inherit;
+    border-radius: var(--radius);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 150ms ease;
+    min-height: 44px;
+  }
+
+  .btn-primary {
+    background-color: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+  }
+
+  .btn-primary:hover { background-color: var(--primary-dark); }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--primary);
+    color: #ffffff;
+  }
+
+  .test-section {
+    background-color: var(--surface);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    border-left: 5px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(30, 26, 18, 0.06);
+  }
+
+  .test-section.section-ok { border-left-color: var(--secondary); }
+  .test-section.section-fail { border-left-color: var(--danger); }
+
+  .test-section h2 {
+    margin: 0 0 12px;
+    font-size: 1.125rem;
+    color: var(--primary);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .test-section h2 .badge {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+  }
+
+  .test-section.section-ok h2 .badge { background-color: var(--secondary); color: #ffffff; }
+  .test-section.section-fail h2 .badge { background-color: var(--danger); color: #ffffff; }
+
+  .test-list { list-style: none; padding: 0; margin: 0; }
+
+  .test-item {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9375rem;
+  }
+
+  .test-item:last-child { border-bottom: none; }
+
+  .test-item .icon {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .test-item.pass .icon { color: var(--secondary); }
+  .test-item.fail .icon { color: var(--danger); }
+
+  .test-item .content { min-width: 0; }
+
+  .test-item .name { color: var(--text); word-break: break-word; }
+  .test-item.fail .name { color: var(--danger); font-weight: 600; }
+
+  .test-item .details {
+    margin-top: 6px;
+    padding: 8px 12px;
+    background-color: #fdf4f2;
+    border-left: 3px solid var(--danger);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--danger);
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+  }
+
+  footer.page-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 3px double var(--border-strong);
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  footer.page-footer p { margin: 4px 0; }
+
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* Fixture fora da tela, apenas para os testes de A11y funcionarem */
+  #a11y-test-fixture {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header class="page-header">
+    <h1>🧪 Suíte de Testes do LDI</h1>
+    <p class="subtitle">
+      Formação de Professores Autores e Formadores para EaD — UFU
+    </p>
+    <span class="version">testes.html · v2.2.0</span>
+  </header>
+
+  <div class="summary" id="summary">
+    <div class="summary-item total">
+      <span class="number" id="sum-total">0</span>
+      <span class="label">Total</span>
+    </div>
+    <div class="summary-item passed">
+      <span class="number" id="sum-passed">0</span>
+      <span class="label">Aprovados</span>
+    </div>
+    <div class="summary-item failed">
+      <span class="number" id="sum-failed">0</span>
+      <span class="label">Falhas</span>
+    </div>
+    <div class="summary-item time">
+      <span class="number" id="sum-time">0 ms</span>
+      <span class="label">Duração</span>
+    </div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn btn-primary" id="btn-run" type="button">
+      ▶️ Rodar todos os testes
+    </button>
+    <button class="btn btn-secondary" id="btn-clear" type="button">
+      🧹 Limpar estado do jogo
+    </button>
+  </div>
+
+  <div id="results">
+    <p class="loading">Carregando módulos e executando testes...</p>
+  </div>
+
+  <footer class="page-footer">
+    <p><strong>Suíte de Testes do LDI</strong></p>
+    <p>Autor: Dirceu Nogueira de Sales Duarte Junior</p>
+    <p>Esta página é uma ferramenta de verificação. Não é distribuída com a aplicação.</p>
+  </footer>
+
+</div>
+
+<!-- ============================================================
+     FIXTURE — Elementos mínimos para o A11y funcionar
+     ============================================================ -->
+<div id="a11y-test-fixture" aria-hidden="true">
+  <button id="btn-open-a11y" type="button"></button>
+  <button id="btn-close-a11y" type="button"></button>
+  <div id="a11y-backdrop" hidden></div>
+  <aside id="a11y-panel" role="dialog" hidden>
+    <button id="a11y-voice" type="button"></button>
+    <button id="a11y-sfx" type="button"></button>
+    <button id="a11y-ambience" type="button"></button>
+    <select id="a11y-ambience-theme">
+      <option value="caminho">Caminho</option>
+      <option value="passos">Passos</option>
+      <option value="amanhecer">Amanhecer</option>
+      <option value="brisa">Brisa</option>
+      <option value="tarde">Tarde</option>
+    </select>
+    <button id="a11y-theme" type="button"></button>
+    <button id="a11y-contrast" type="button"></button>
+    <button id="a11y-motion" type="button"></button>
+    <button id="a11y-font-down" type="button"></button>
+    <button id="a11y-font-reset" type="button"></button>
+    <button id="a11y-font-up" type="button"></button>
+    <span id="a11y-font-status"></span>
+  </aside>
+  <div id="live-region" aria-live="polite"></div>
+  <div id="alert-region" aria-live="assertive"></div>
+  <div id="toast-region"></div>
+  <div id="screen-root"></div>
+</div>
+
+<!-- ============================================================
+     CARREGAMENTO DOS MÓDULOS DO LDI
+     ============================================================ -->
+<script src="../js/theme.js"></script>
+<script src="../js/missions.js"></script>
+<script src="../js/boss.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/game.js"></script>
+<script src="../js/audio.js"></script>
+<script src="../js/accessibility.js"></script>
+
+<!-- ============================================================
+     MOTOR DE TESTES
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ============================================================
+     ESTRUTURAS
+     ============================================================ */
+
+  var TESTS = [];
+  var results = {
+    total: 0,
+    passed: 0,
+    failed: 0,
+    sections: [],
+    startTime: 0,
+    endTime: 0
+  };
+
+  var currentSection = null;
+
+  function section(name) {
+    currentSection = { name: name, tests: [] };
+    results.sections.push(currentSection);
+  }
+
+  function test(name, fn) {
+    var entry = { name: name, fn: fn, passed: false, error: null };
+    if (currentSection) {
+      currentSection.tests.push(entry);
+    } else {
+      section('Geral');
+      currentSection.tests.push(entry);
+    }
+    TESTS.push(entry);
+  }
+
+  /* ============================================================
+     ASSERTIONS
+     ============================================================ */
+
+  function fail(msg) {
+    throw new Error(msg || 'Falhou');
+  }
+
+  function ok(cond, msg) {
+    if (!cond) fail(msg || 'Esperado truthy, recebido falsy');
+  }
+
+  function equal(actual, expected, msg) {
+    if (actual !== expected) {
+      fail((msg ? msg + ': ' : '') + 'esperado ' + JSON.stringify(expected) +
+           ', recebido ' + JSON.stringify(actual));
+    }
+  }
+
+  function exists(value, msg) {
+    if (value === null || value === undefined) {
+      fail((msg ? msg + ': ' : '') + 'valor ausente (null/undefined)');
+    }
+  }
+
+  function isArray(value, msg) {
+    if (!Array.isArray(value)) {
+      fail((msg ? msg + ': ' : '') + 'esperado array, recebido ' + typeof value);
+    }
+  }
+
+  function isObject(value, msg) {
+    if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+      fail((msg ? msg + ': ' : '') + 'esperado objeto, recebido ' +
+           (Array.isArray(value) ? 'array' : typeof value));
+    }
+  }
+
+  function isString(value, msg) {
+    if (typeof value !== 'string') {
+      fail((msg ? msg + ': ' : '') + 'esperado string, recebido ' + typeof value);
+    }
+  }
+
+  function isNumber(value, msg) {
+    if (typeof value !== 'number' || isNaN(value)) {
+      fail((msg ? msg + ': ' : '') + 'esperado número, recebido ' + typeof value);
+    }
+  }
+
+  function isBoolean(value, msg) {
+    if (typeof value !== 'boolean') {
+      fail((msg ? msg + ': ' : '') + 'esperado boolean, recebido ' + typeof value);
+    }
+  }
+
+  function arrayHasLength(arr, len, msg) {
+    isArray(arr, msg);
+    if (arr.length !== len) {
+      fail((msg ? msg + ': ' : '') + 'esperado array com ' + len +
+           ' itens, recebido ' + arr.length);
+    }
+  }
+
+  function arrayHasMinLength(arr, min, msg) {
+    isArray(arr, msg);
+    if (arr.length < min) {
+      fail((msg ? msg + ': ' : '') + 'esperado array com pelo menos ' + min +
+           ' itens, recebido ' + arr.length);
+    }
+  }
+
+  function includes(array, value, msg) {
+    isArray(array, msg);
+    if (array.indexOf(value) === -1) {
+      fail((msg ? msg + ': ' : '') + 'esperado que o array contenha ' +
+           JSON.stringify(value));
+    }
+  }
+
+  function resetGame() {
+    if (window.Game && typeof window.Game.reset === 'function') {
+      try { window.Game.reset(); } catch (e) { /* silencioso */ }
+    }
+  }
+
+  /* ============================================================
+     TESTES — theme.js
+     ============================================================ */
+
+  section('theme.js — Identidade do curso');
+
+  test('window.THEME existe e é objeto', function () {
+    exists(window.THEME, 'THEME');
+    isObject(window.THEME, 'THEME');
+  });
+
+  test('meta contém campos obrigatórios', function () {
+    exists(window.THEME.meta, 'THEME.meta');
+    isString(window.THEME.meta.title, 'meta.title');
+    isString(window.THEME.meta.subtitle, 'meta.subtitle');
+    isString(window.THEME.meta.kicker, 'meta.kicker');
+    isString(window.THEME.meta.tagline, 'meta.tagline');
+    isString(window.THEME.meta.intro, 'meta.intro');
+  });
+
+  test('characters contém amanda, carlos e default', function () {
+    exists(window.THEME.characters, 'characters');
+    exists(window.THEME.characters.amanda, 'amanda');
+    exists(window.THEME.characters.carlos, 'carlos');
+    exists(window.THEME.characters.default, 'default');
+  });
+
+  test('personagens têm name, role e svg', function () {
+    var p = window.THEME.characters.amanda;
+    isString(p.name, 'amanda.name');
+    isString(p.role, 'amanda.role');
+    isString(p.svg, 'amanda.svg');
+
+    var c = window.THEME.characters.carlos;
+    isString(c.name, 'carlos.name');
+    isString(c.role, 'carlos.role');
+    isString(c.svg, 'carlos.svg');
+  });
+
+  test('colors contém todas as chaves obrigatórias', function () {
+    var required = ['bg', 'surface', 'surfaceAlt', 'text', 'textMuted',
+                    'textInverse', 'primary', 'primaryDark', 'primaryLight',
+                    'secondary', 'secondaryDark', 'accent', 'accentDark',
+                    'danger', 'dangerDark', 'success', 'warning', 'purple',
+                    'border', 'borderStrong'];
+    for (var i = 0; i < required.length; i++) {
+      exists(window.THEME.colors[required[i]], 'colors.' + required[i]);
+    }
+  });
+
+  test('trails é objeto com 6 trilhas', function () {
+    isObject(window.THEME.trails, 'trails');
+    var ids = Object.keys(window.THEME.trails);
+    equal(ids.length, 6, 'número de trilhas');
+    includes(ids, 'fundamentos', 'trilha fundamentos');
+    includes(ids, 'planejamento', 'trilha planejamento');
+    includes(ids, 'producao', 'trilha producao');
+    includes(ids, 'avaliacao', 'trilha avaliacao');
+    includes(ids, 'atuacao', 'trilha atuacao');
+    includes(ids, 'praticas', 'trilha praticas');
+  });
+
+  test('cada trilha tem id, label e icon', function () {
+    var trails = window.THEME.trails;
+    Object.keys(trails).forEach(function (id) {
+      isString(trails[id].id, id + '.id');
+      isString(trails[id].label, id + '.label');
+      isString(trails[id].icon, id + '.icon');
+    });
+  });
+
+  test('gamification contém scoreName, xpName e levelName', function () {
+    exists(window.THEME.gamification, 'gamification');
+    isString(window.THEME.gamification.scoreName, 'scoreName');
+    isString(window.THEME.gamification.xpName, 'xpName');
+    isString(window.THEME.gamification.levelName, 'levelName');
+  });
+
+  test('screens contém todos os títulos das telas', function () {
+    var required = ['mapTitle', 'mapSubtitle', 'contentsTitle', 'contentsSubtitle',
+                    'glossaryTitle', 'glossarySubtitle', 'achievementsTitle',
+                    'aboutTitle', 'aboutSubtitle', 'transparencyTitle',
+                    'howtoTitle', 'howtoSubtitle'];
+    for (var i = 0; i < required.length; i++) {
+      isString(window.THEME.screens[required[i]], 'screens.' + required[i]);
+    }
+  });
+
+  test('howTo.steps tem pelo menos 5 passos', function () {
+    exists(window.THEME.howTo, 'howTo');
+    arrayHasMinLength(window.THEME.howTo.steps, 5, 'howTo.steps');
+  });
+
+  test('howTo.steps tem passo com link para o PDF', function () {
+    var steps = window.THEME.howTo.steps;
+    var hasPdf = false;
+    for (var i = 0; i < steps.length; i++) {
+      if (steps[i].action && steps[i].action.url &&
+          steps[i].action.url.indexOf('.pdf') !== -1) {
+        hasPdf = true;
+        break;
+      }
+    }
+    ok(hasPdf, 'deve haver passo com link para o PDF');
+  });
+
+  test('howTo.tips tem pelo menos 5 dicas', function () {
+    arrayHasMinLength(window.THEME.howTo.tips, 5, 'howTo.tips');
+  });
+
+  test('texts.aboutItems tem pelo menos 8 itens', function () {
+    arrayHasMinLength(window.THEME.texts.aboutItems, 8, 'aboutItems');
+  });
+
+  test('texts.aboutItems tem item sobre modelo pedagógico', function () {
+    var items = window.THEME.texts.aboutItems;
+    var hasModel = false;
+    for (var i = 0; i < items.length; i++) {
+      if (/modelo pedagógico/i.test(items[i].term)) {
+        hasModel = true;
+        break;
+      }
+    }
+    ok(hasModel, 'deve haver item sobre modelo pedagógico');
+  });
+
+  test('texts.transparency tem pelo menos 3 parágrafos', function () {
+    arrayHasMinLength(window.THEME.texts.transparency, 3, 'transparency');
+  });
+
+  test('ui tem todos os rótulos de botões', function () {
+    var required = ['btnStartJourney', 'btnContinueJourney', 'btnHowTo',
+                    'btnHome', 'btnBackToMap', 'btnContinue',
+                    'btnStartMission', 'btnFaceBoss', 'btnReset',
+                    'resetConfirm', 'finalTitle'];
+    for (var i = 0; i < required.length; i++) {
+      exists(window.THEME.ui[required[i]], 'ui.' + required[i]);
+    }
+  });
+
+  /* ============================================================
+     TESTES — missions.js
+     ============================================================ */
+
+  section('missions.js — Conteúdo (missões, boss, glossário, conquistas, temas)');
+
+  test('window.MISSIONS é array com 16 itens', function () {
+    arrayHasLength(window.MISSIONS, 16, 'MISSIONS');
+  });
+
+  test('window.BOSS existe com 3 decisões', function () {
+    exists(window.BOSS, 'BOSS');
+    arrayHasLength(window.BOSS.decisions, 3, 'BOSS.decisions');
+  });
+
+  test('window.GLOSSARY é array com 32 termos', function () {
+    arrayHasLength(window.GLOSSARY, 32, 'GLOSSARY');
+  });
+
+  test('window.ACHIEVEMENTS é array com 19 conquistas', function () {
+    arrayHasLength(window.ACHIEVEMENTS, 19, 'ACHIEVEMENTS');
+  });
+
+  test('window.CONTENT_THEMES é array com 9 temas', function () {
+    arrayHasLength(window.CONTENT_THEMES, 9, 'CONTENT_THEMES');
+  });
+
+  test('toda missão tem exatamente 4 alternativas', function () {
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      arrayHasLength(window.MISSIONS[i].options, 4,
+                    'missão ' + window.MISSIONS[i].id + ' (' +
+                    window.MISSIONS[i].title + ')');
+    }
+  });
+
+  test('toda missão tem exatamente 1 alternativa correta', function () {
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      var correctCount = 0;
+      for (var j = 0; j < m.options.length; j++) {
+        if (m.options[j].correct) correctCount++;
+      }
+      equal(correctCount, 1, 'missão ' + m.id + ' deve ter 1 correta');
+    }
+  });
+
+  test('toda alternativa tem text e feedback', function () {
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      for (var j = 0; j < m.options.length; j++) {
+        var opt = m.options[j];
+        isString(opt.text, 'missão ' + m.id + ' opção ' + j + ' text');
+        isString(opt.feedback, 'missão ' + m.id + ' opção ' + j + ' feedback');
+        ok(opt.text.length >= 30,
+           'missão ' + m.id + ' opção ' + j + ' text curto');
+        ok(opt.feedback.length >= 50,
+           'missão ' + m.id + ' opção ' + j + ' feedback curto');
+      }
+    }
+  });
+
+  test('toda alternativa errada tem feedback distinto da correta', function () {
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      var correctFeedback = null;
+      for (var j = 0; j < m.options.length; j++) {
+        if (m.options[j].correct) {
+          correctFeedback = m.options[j].feedback;
+          break;
+        }
+      }
+      for (var k = 0; k < m.options.length; k++) {
+        if (!m.options[k].correct && m.options[k].feedback === correctFeedback) {
+          fail('missão ' + m.id + ' opção ' + k + ' tem o mesmo feedback da correta');
+        }
+      }
+    }
+  });
+
+  test('posições corretas distribuídas uniformemente (A, B, C, D)', function () {
+    var countA = 0, countB = 0, countC = 0, countD = 0;
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      for (var j = 0; j < m.options.length; j++) {
+        if (m.options[j].correct) {
+          if (j === 0) countA++;
+          else if (j === 1) countB++;
+          else if (j === 2) countC++;
+          else if (j === 3) countD++;
+        }
+      }
+    }
+    ok(countA >= 2 && countA <= 6, 'posição A: ' + countA);
+    ok(countB >= 2 && countB <= 6, 'posição B: ' + countB);
+    ok(countC >= 2 && countC <= 6, 'posição C: ' + countC);
+    ok(countD >= 2 && countD <= 6, 'posição D: ' + countD);
+  });
+
+  test('diferença de comprimento entre alternativas <= 25% por missão', function () {
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      var lengths = m.options.map(function (o) { return o.text.length; });
+      var max = Math.max.apply(null, lengths);
+      var min = Math.min.apply(null, lengths);
+      var diff = (max - min) / max;
+      ok(diff <= 0.25,
+         'missão ' + m.id + ' diff ' + (diff * 100).toFixed(1) +
+         '% (max ' + max + ', min ' + min + ')');
+    }
+  });
+
+  test('toda missão tem trail válida em THEME.trails', function () {
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      isString(m.trail, 'missão ' + m.id + ' trail');
+      exists(window.THEME.trails[m.trail],
+             'missão ' + m.id + ' trail "' + m.trail + '" não existe em THEME.trails');
+    }
+  });
+
+  test('toda missão tem character válido em THEME.characters', function () {
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      isString(m.character, 'missão ' + m.id + ' character');
+      exists(window.THEME.characters[m.character],
+             'missão ' + m.id + ' character "' + m.character + '" não existe');
+    }
+  });
+
+  test('toda missão tem characterIntro', function () {
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      isString(m.characterIntro, 'missão ' + m.id + ' characterIntro');
+      ok(m.characterIntro.length >= 30,
+         'missão ' + m.id + ' characterIntro curto');
+    }
+  });
+
+  test('toda missão tem reward definido', function () {
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      exists(m.reward, 'missão ' + m.id + ' reward');
+      isNumber(m.reward.aura, 'missão ' + m.id + ' reward.aura');
+      isNumber(m.reward.xp, 'missão ' + m.id + ' reward.xp');
+    }
+  });
+
+  test('toda missão tem source com chapter e pages', function () {
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var s = window.MISSIONS[i].source;
+      exists(s, 'missão ' + window.MISSIONS[i].id + ' source');
+      isString(s.chapter, 'missão ' + window.MISSIONS[i].id + ' source.chapter');
+      isString(s.pages, 'missão ' + window.MISSIONS[i].id + ' source.pages');
+    }
+  });
+
+  test('toda missão tem achievement associada', function () {
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      isString(window.MISSIONS[i].achievement,
+               'missão ' + window.MISSIONS[i].id + ' achievement');
+    }
+  });
+
+  test('toda missão tem icon e category', function () {
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      isString(m.icon, 'missão ' + m.id + ' icon');
+      isString(m.category, 'missão ' + m.id + ' category');
+    }
+  });
+
+  test('Boss tem characterIntro, scenario e category', function () {
+    isString(window.BOSS.characterIntro, 'boss.characterIntro');
+    isString(window.BOSS.scenario, 'boss.scenario');
+    isString(window.BOSS.category, 'boss.category');
+  });
+
+  test('Boss tem reward definido (50 aura / 5000 xp)', function () {
+    exists(window.BOSS.reward, 'boss.reward');
+    equal(window.BOSS.reward.aura, 50, 'boss.reward.aura');
+    equal(window.BOSS.reward.xp, 5000, 'boss.reward.xp');
+  });
+
+  test('Boss tem 3 decisões, cada uma com 4 alternativas', function () {
+    for (var i = 0; i < window.BOSS.decisions.length; i++) {
+      arrayHasLength(window.BOSS.decisions[i].options, 4, 'boss decisão ' + i);
+    }
+  });
+
+  test('cada decisão do Boss tem exatamente 1 alternativa correta', function () {
+    for (var i = 0; i < window.BOSS.decisions.length; i++) {
+      var d = window.BOSS.decisions[i];
+      var count = 0;
+      for (var j = 0; j < d.options.length; j++) {
+        if (d.options[j].correct) count++;
+      }
+      equal(count, 1, 'boss decisão ' + i + ' deve ter 1 correta');
+    }
+  });
+
+  test('cada decisão do Boss tem id, title e prompt', function () {
+    for (var i = 0; i < window.BOSS.decisions.length; i++) {
+      var d = window.BOSS.decisions[i];
+      isString(d.id, 'decisão ' + i + ' id');
+      isString(d.title, 'decisão ' + i + ' title');
+      isString(d.prompt, 'decisão ' + i + ' prompt');
+    }
+  });
+
+  test('glossário tem termos com term e definition', function () {
+    for (var i = 0; i < window.GLOSSARY.length; i++) {
+      var item = window.GLOSSARY[i];
+      isString(item.term, 'glossário item ' + i + ' term');
+      isString(item.definition, 'glossário item ' + i + ' definition');
+      ok(item.definition.length > 30, 'glossário item ' + i + ' definition curta');
+    }
+  });
+
+  test('conquistas têm id, name, description e icon', function () {
+    for (var i = 0; i < window.ACHIEVEMENTS.length; i++) {
+      var a = window.ACHIEVEMENTS[i];
+      isString(a.id, 'conquista ' + i + ' id');
+      isString(a.name, 'conquista ' + i + ' name');
+      isString(a.description, 'conquista ' + i + ' description');
+      isString(a.icon, 'conquista ' + i + ' icon');
+    }
+  });
+
+  test('conquistas têm campo trail (tema visual)', function () {
+    var validTrails = ['fundamentos', 'planejamento', 'producao', 'avaliacao',
+                       'atuacao', 'praticas', 'boss', 'global'];
+    for (var i = 0; i < window.ACHIEVEMENTS.length; i++) {
+      var a = window.ACHIEVEMENTS[i];
+      isString(a.trail, 'conquista ' + a.id + ' trail');
+      ok(validTrails.indexOf(a.trail) !== -1,
+         'conquista ' + a.id + ' trail inválida: ' + a.trail);
+    }
+  });
+
+  test('conquistas têm ids únicos', function () {
+    var seen = {};
+    for (var i = 0; i < window.ACHIEVEMENTS.length; i++) {
+      var id = window.ACHIEVEMENTS[i].id;
+      ok(!seen[id], 'id duplicado: ' + id);
+      seen[id] = true;
+    }
+  });
+
+  test('conquistas têm estudioso e curioso', function () {
+    var ids = window.ACHIEVEMENTS.map(function (a) { return a.id; });
+    includes(ids, 'estudioso', 'estudioso');
+    includes(ids, 'curioso', 'curioso');
+    includes(ids, 'boss-final', 'boss-final');
+  });
+
+  test('temas de conteúdo têm id, icon, title, summary e pages', function () {
+    for (var i = 0; i < window.CONTENT_THEMES.length; i++) {
+      var t = window.CONTENT_THEMES[i];
+      isString(t.id, 'tema ' + i + ' id');
+      isString(t.icon, 'tema ' + i + ' icon');
+      isString(t.title, 'tema ' + i + ' title');
+      isString(t.summary, 'tema ' + i + ' summary');
+      isString(t.pages, 'tema ' + i + ' pages');
+    }
+  });
+
+  test('cada tema aponta para uma missão existente', function () {
+    for (var i = 0; i < window.CONTENT_THEMES.length; i++) {
+      var t = window.CONTENT_THEMES[i];
+      isNumber(t.missionId, 'tema ' + t.id + ' missionId');
+      var mission = null;
+      for (var j = 0; j < window.MISSIONS.length; j++) {
+        if (window.MISSIONS[j].id === t.missionId) { mission = window.MISSIONS[j]; break; }
+      }
+      ok(mission, 'tema ' + t.id + ' aponta para missão inexistente: ' + t.missionId);
+    }
+  });
+
+  test('cada conquista de missão está em ACHIEVEMENTS', function () {
+    var ids = window.ACHIEVEMENTS.map(function (a) { return a.id; });
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var achId = window.MISSIONS[i].achievement;
+      includes(ids, achId, 'missão ' + window.MISSIONS[i].id + ' -> ' + achId);
+    }
+  });
+
+  /* ============================================================
+     TESTES — game.js
+     ============================================================ */
+
+  section('game.js — Motor de estado');
+
+  test('window.Game existe com API pública', function () {
+    exists(window.Game, 'Game');
+    isObject(window.Game, 'Game');
+    isString(window.Game.VERSION, 'Game.VERSION');
+  });
+
+  test('Game tem todos os métodos esperados pelo app.js', function () {
+    var methods = ['init', 'reset', 'getState', 'completeMission',
+                   'isMissionCompleted', 'isMissionUnlocked',
+                   'isBossUnlocked', 'isBossCompleted', 'setBossResult',
+                   'markContentThemeOpened', 'markGlossaryTermOpened',
+                   'on', 'off', 'calculateLevel', 'getLevelInfo',
+                   'findMission', 'findAchievement', 'getAttempts',
+                   'calculateReward'];
+    for (var i = 0; i < methods.length; i++) {
+      ok(typeof window.Game[methods[i]] === 'function',
+         'Game.' + methods[i] + ' deve ser função');
+    }
+  });
+
+  test('Game.getState retorna objeto com chaves obrigatórias', function () {
+    resetGame();
+    var s = window.Game.getState();
+    isObject(s, 'state');
+    isArray(s.completedMissions, 'completedMissions');
+    isNumber(s.aura, 'aura');
+    isNumber(s.xp, 'xp');
+    isNumber(s.level, 'level');
+    isObject(s.levelInfo, 'levelInfo');
+    isArray(s.achievements, 'achievements');
+    isBoolean(s.bossCompleted, 'bossCompleted');
+    isNumber(s.bossScore, 'bossScore');
+    isObject(s.answers, 'answers');
+    isObject(s.missionAttempts, 'missionAttempts');
+    isArray(s.openedContentThemes, 'openedContentThemes');
+    isArray(s.openedGlossaryTerms, 'openedGlossaryTerms');
+  });
+
+  test('Estado inicial: aura=0, xp=0, level=1', function () {
+    resetGame();
+    var s = window.Game.getState();
+    equal(s.aura, 0, 'aura inicial');
+    equal(s.xp, 0, 'xp inicial');
+    equal(s.level, 1, 'level inicial');
+  });
+
+  test('Estado inicial: nenhuma missão concluída, boss não concluído', function () {
+    resetGame();
+    var s = window.Game.getState();
+    equal(s.completedMissions.length, 0, 'completedMissions vazio');
+    equal(s.bossCompleted, false, 'bossCompleted false');
+    equal(s.bossScore, 0, 'bossScore zero');
+  });
+
+  test('calculateLevel retorna nível correto por XP', function () {
+    equal(window.Game.calculateLevel(0), 1, 'XP 0 -> nível 1');
+    equal(window.Game.calculateLevel(999), 1, 'XP 999 -> nível 1');
+    equal(window.Game.calculateLevel(1000), 2, 'XP 1000 -> nível 2');
+    equal(window.Game.calculateLevel(2500), 3, 'XP 2500 -> nível 3');
+    equal(window.Game.calculateLevel(4500), 4, 'XP 4500 -> nível 4');
+    equal(window.Game.calculateLevel(7000), 5, 'XP 7000 -> nível 5');
+    equal(window.Game.calculateLevel(10000), 6, 'XP 10000 -> nível 6');
+    equal(window.Game.calculateLevel(99999), 6, 'XP alto -> nível 6');
+  });
+
+  test('calculateReward: 0 erros retorna 100% da recompensa', function () {
+    var mission = window.Game.findMission(1);
+    var r = window.Game.calculateReward(mission, 0);
+    equal(r.aura, 10, 'aura');
+    equal(r.xp, 1000, 'xp');
+  });
+
+  test('calculateReward: 1 erro retorna 70%', function () {
+    var mission = window.Game.findMission(1);
+    var r = window.Game.calculateReward(mission, 1);
+    equal(r.aura, 7, 'aura');
+    equal(r.xp, 700, 'xp');
+  });
+
+  test('calculateReward: 2 erros retorna 50%', function () {
+    var mission = window.Game.findMission(1);
+    var r = window.Game.calculateReward(mission, 2);
+    equal(r.aura, 5, 'aura');
+    equal(r.xp, 500, 'xp');
+  });
+
+  test('calculateReward: 3 ou mais erros retorna 30%', function () {
+    var mission = window.Game.findMission(1);
+    var r = window.Game.calculateReward(mission, 3);
+    equal(r.aura, 3, 'aura');
+    equal(r.xp, 300, 'xp');
+    var r2 = window.Game.calculateReward(mission, 99);
+    equal(r2.aura, 3, 'aura limitada');
+    equal(r2.xp, 300, 'xp limitado');
+  });
+
+  test('Missão 1 está desbloqueada, missão 2 não', function () {
+    resetGame();
+    ok(window.Game.isMissionUnlocked(1), 'missão 1 desbloqueada');
+    ok(!window.Game.isMissionUnlocked(2), 'missão 2 bloqueada');
+  });
+
+  test('completeMission com resposta correta retorna reward', function () {
+    resetGame();
+    var m = window.Game.findMission(1);
+    var correctIdx = -1;
+    for (var i = 0; i < m.options.length; i++) {
+      if (m.options[i].correct) { correctIdx = i; break; }
+    }
+    var r = window.Game.completeMission(1, correctIdx);
+    exists(r, 'resultado');
+    exists(r.reward, 'reward');
+    equal(r.reward.aura, 10, 'aura 1ª tentativa');
+    equal(r.reward.xp, 1000, 'xp 1ª tentativa');
+    isString(r.achievement, 'achievement');
+  });
+
+  test('completeMission com resposta errada não retorna reward', function () {
+    resetGame();
+    var m = window.Game.findMission(1);
+    var wrongIdx = -1;
+    for (var i = 0; i < m.options.length; i++) {
+      if (!m.options[i].correct) { wrongIdx = i; break; }
+    }
+    var r = window.Game.completeMission(1, wrongIdx);
+    exists(r, 'resultado');
+    equal(r.reward, null, 'reward deve ser null');
+    equal(r.achievement, null, 'achievement deve ser null');
+  });
+
+  test('Após acerto, missão 1 fica concluída e aura/xp sobem', function () {
+    resetGame();
+    var m = window.Game.findMission(1);
+    var correctIdx = -1;
+    for (var i = 0; i < m.options.length; i++) {
+      if (m.options[i].correct) { correctIdx = i; break; }
+    }
+    window.Game.completeMission(1, correctIdx);
+    ok(window.Game.isMissionCompleted(1), 'missão 1 concluída');
+    var s = window.Game.getState();
+    equal(s.aura, 10, 'aura acumulada');
+    equal(s.xp, 1000, 'xp acumulado');
+  });
+
+  test('Após acerto, missão 2 fica desbloqueada', function () {
+    resetGame();
+    var m = window.Game.findMission(1);
+    var correctIdx = -1;
+    for (var i = 0; i < m.options.length; i++) {
+      if (m.options[i].correct) { correctIdx = i; break; }
+    }
+    window.Game.completeMission(1, correctIdx);
+    ok(window.Game.isMissionUnlocked(2), 'missão 2 desbloqueada');
+  });
+
+  test('Erro único reduz recompensa da 2ª tentativa', function () {
+    resetGame();
+    var m = window.Game.findMission(1);
+    var correctIdx = -1, wrongIdx = -1;
+    for (var i = 0; i < m.options.length; i++) {
+      if (m.options[i].correct) correctIdx = i;
+      else if (wrongIdx === -1) wrongIdx = i;
+    }
+    window.Game.completeMission(1, wrongIdx);
+    var r = window.Game.completeMission(1, correctIdx);
+    exists(r.reward, 'reward');
+    equal(r.reward.aura, 7, 'aura 2ª tentativa');
+    equal(r.reward.xp, 700, 'xp 2ª tentativa');
+  });
+
+  test('3 erros consecutivos -> recompensa cai para 30%', function () {
+    resetGame();
+    var m = window.Game.findMission(1);
+    var correctIdx = -1;
+    var wrongIndexes = [];
+    for (var i = 0; i < m.options.length; i++) {
+      if (m.options[i].correct) correctIdx = i;
+      else wrongIndexes.push(i);
+    }
+    window.Game.completeMission(1, wrongIndexes[0]);
+    window.Game.completeMission(1, wrongIndexes[1]);
+    window.Game.completeMission(1, wrongIndexes[2]);
+    var r = window.Game.completeMission(1, correctIdx);
+    exists(r.reward, 'reward');
+    equal(r.reward.aura, 3, 'aura 3+ tentativa');
+    equal(r.reward.xp, 300, 'xp 3+ tentativa');
+  });
+
+  test('Aura nunca fica negativa após erros', function () {
+    resetGame();
+    var m = window.Game.findMission(1);
+    var wrongIdx = -1;
+    for (var i = 0; i < m.options.length; i++) {
+      if (!m.options[i].correct) { wrongIdx = i; break; }
+    }
+    window.Game.completeMission(1, wrongIdx);
+    window.Game.completeMission(1, wrongIdx);
+    window.Game.completeMission(1, wrongIdx);
+    var s = window.Game.getState();
+    ok(s.aura >= 0, 'aura >= 0');
+  });
+
+  test('Toda missão concluída -> Boss desbloqueado', function () {
+    resetGame();
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      var correctIdx = -1;
+      for (var j = 0; j < m.options.length; j++) {
+        if (m.options[j].correct) { correctIdx = j; break; }
+      }
+      window.Game.completeMission(m.id, correctIdx);
+    }
+    ok(window.Game.isBossUnlocked(), 'boss desbloqueado');
+  });
+
+  test('setBossResult registra conclusão do boss', function () {
+    resetGame();
+    var r = window.Game.setBossResult(75);
+    exists(r, 'resultado');
+    ok(window.Game.isBossCompleted(), 'boss concluído');
+    var s = window.Game.getState();
+    equal(s.bossScore, 75, 'bossScore');
+  });
+
+  test('markContentThemeOpened acumula temas abertos', function () {
+    resetGame();
+    var r = window.Game.markContentThemeOpened('tema-1');
+    equal(r.unlocked, false, 'ainda não desbloqueou');
+    window.Game.markContentThemeOpened('tema-2');
+    var r3 = window.Game.markContentThemeOpened('tema-3');
+    equal(r3.unlocked, true, 'estudioso desbloqueado');
+    ok(window.Game.getState().achievements.indexOf('estudioso') !== -1,
+       'estudioso na lista de conquistas');
+  });
+
+  test('markGlossaryTermOpened acumula termos abertos', function () {
+    resetGame();
+    for (var i = 1; i <= 4; i++) {
+      window.Game.markGlossaryTermOpened('termo-' + i);
+    }
+    var r = window.Game.markGlossaryTermOpened('termo-5');
+    equal(r.unlocked, true, 'curioso desbloqueado');
+    ok(window.Game.getState().achievements.indexOf('curioso') !== -1,
+       'curioso na lista de conquistas');
+  });
+
+  test('reset() zera aura, xp e missões concluídas', function () {
+    resetGame();
+    var m = window.Game.findMission(1);
+    var correctIdx = -1;
+    for (var i = 0; i < m.options.length; i++) {
+      if (m.options[i].correct) { correctIdx = i; break; }
+    }
+    window.Game.completeMission(1, correctIdx);
+    window.Game.reset();
+    var s = window.Game.getState();
+    equal(s.aura, 0, 'aura zerada');
+    equal(s.xp, 0, 'xp zerado');
+    equal(s.completedMissions.length, 0, 'sem missões concluídas');
+  });
+
+  test('Sistema de eventos: on/off/emit funcionam', function () {
+    var received = null;
+    function handler(data) { received = data; }
+    window.Game.on('test:event', handler);
+    try {
+      window.Game.completeMission(1, 0);
+    } catch (e) { /* silencioso */ }
+    window.Game.off('test:event', handler);
+    ok(true, 'on/off não lançaram');
+  });
+
+  /* ============================================================
+     TESTES — audio.js
+     ============================================================ */
+
+  section('audio.js — Voz, efeitos e melodias');
+
+  test('window.Audio existe com API pública', function () {
+    exists(window.Audio, 'Audio');
+    isObject(window.Audio, 'Audio');
+    isString(window.Audio.VERSION, 'Audio.VERSION');
+  });
+
+  test('Audio tem todos os métodos esperados pelo app.js', function () {
+    var methods = ['init', 'speak', 'stopSpeak', 'playSfx',
+                   'speakAfterSfx', 'getMelodies', 'getPrefs',
+                   'setVoice', 'setSfx', 'setAmbience', 'setMelody',
+                   'removeEmojisAndSymbols', 'expandGenderParentheticals',
+                   'expandAbbreviations', 'normalizeCapsWords',
+                   'applyPronunciationDict', 'prepareTextForSpeech'];
+    for (var i = 0; i < methods.length; i++) {
+      ok(typeof window.Audio[methods[i]] === 'function',
+         'Audio.' + methods[i] + ' deve ser função');
+    }
+  });
+
+  test('getMelodies() retorna 5 melodias', function () {
+    var melodies = window.Audio.getMelodies();
+    arrayHasLength(melodies, 5, 'melodias');
+  });
+
+  test('cada melodia tem id, name e icon', function () {
+    var melodies = window.Audio.getMelodies();
+    for (var i = 0; i < melodies.length; i++) {
+      isString(melodies[i].id, 'melodia ' + i + ' id');
+      isString(melodies[i].name, 'melodia ' + i + ' name');
+      isString(melodies[i].icon, 'melodia ' + i + ' icon');
+    }
+  });
+
+  test('melodias têm os ids usados no HTML', function () {
+    var melodies = window.Audio.getMelodies();
+    var ids = melodies.map(function (m) { return m.id; });
+    includes(ids, 'caminho', 'caminho');
+    includes(ids, 'passos', 'passos');
+    includes(ids, 'amanhecer', 'amanhecer');
+    includes(ids, 'brisa', 'brisa');
+    includes(ids, 'tarde', 'tarde');
+  });
+
+  test('removeEmojisAndSymbols remove emojis', function () {
+    var r = window.Audio.removeEmojisAndSymbols('Olá 🎯 mundo 🚀 teste!');
+    ok(r.indexOf('🎯') === -1, 'emoji 🎯 removido');
+    ok(r.indexOf('🚀') === -1, 'emoji 🚀 removido');
+    ok(r.indexOf('Olá') !== -1, 'texto preservado');
+    ok(r.indexOf('mundo') !== -1, 'texto preservado');
+  });
+
+  test('removeEmojisAndSymbols remove HTML residual', function () {
+    var r = window.Audio.removeEmojisAndSymbols('<p>Olá</p> mundo');
+    ok(r.indexOf('<') === -1, 'HTML removido');
+    ok(r.indexOf('Olá') !== -1, 'texto preservado');
+  });
+
+  test('normalizeCapsWords preserva siglas conhecidas', function () {
+    var r = window.Audio.normalizeCapsWords('A UFU e o MEC AVALIAM');
+    ok(r.indexOf('UFU') !== -1, 'UFU preservada');
+    ok(r.indexOf('MEC') !== -1, 'MEC preservada');
+    ok(r.indexOf('AVALIAM') === -1, 'CAIXA ALTA reduzida');
+  });
+
+  test('applyPronunciationDict substitui Moodle por Mudi', function () {
+    var r = window.Audio.applyPronunciationDict('Abra o Moodle agora');
+    ok(r.indexOf('Mudi') !== -1, 'Moodle -> Mudi');
+    ok(r.indexOf('Moodle') === -1, 'Moodle original removido');
+  });
+
+  test('applyPronunciationDict substitui EaD por ead', function () {
+    var r = window.Audio.applyPronunciationDict('Vou estudar EaD agora');
+    ok(r.indexOf('ead') !== -1, 'EaD -> ead');
+    ok(r.indexOf('EaD') === -1, 'EaD original removido');
+  });
+
+  test('applyPronunciationDict substitui AVA por ava', function () {
+    var r = window.Audio.applyPronunciationDict('Acesse o AVA da UFU');
+    ok(r.indexOf('ava') !== -1, 'AVA -> ava');
+    ok(r.indexOf('ufu') !== -1, 'UFU -> ufu');
+  });
+
+  test('expandGenderParentheticals: professor(a) -> professor e professora', function () {
+    var r = window.Audio.expandGenderParentheticals('O professor(a) chegou');
+    ok(r.indexOf('professor e professora') !== -1,
+       'professor(a) expandido: ' + r);
+  });
+
+  test('expandGenderParentheticals: aluno(a) -> aluno e aluna', function () {
+    var r = window.Audio.expandGenderParentheticals('O aluno(a) estudou');
+    ok(r.indexOf('aluno e aluna') !== -1,
+       'aluno(a) expandido: ' + r);
+  });
+
+  test('expandAbbreviations: p. -> página', function () {
+    var r = window.Audio.expandAbbreviations('Veja a p. 41 do Guia');
+    ok(r.indexOf('página') !== -1, 'p. -> página: ' + r);
+  });
+
+  test('expandAbbreviations: Art. -> artigo', function () {
+    var r = window.Audio.expandAbbreviations('O Art. 80 da LDB');
+    ok(r.indexOf('artigo') !== -1, 'Art. -> artigo: ' + r);
+  });
+
+  test('prepareTextForSpeech combina todas as transformações', function () {
+    var r = window.Audio.prepareTextForSpeech(
+      'O professor(a) leu o AVA (p. 41) e o EaD'
+    );
+    ok(r.indexOf('professor e professora') !== -1, 'parentético expandido');
+    ok(r.indexOf('ava') !== -1, 'AVA -> ava');
+    ok(r.indexOf('página') !== -1, 'p. -> página');
+    ok(r.indexOf('ead') !== -1, 'EaD -> ead');
+  });
+
+  test('getPrefs retorna preferências com todas as chaves', function () {
+    var prefs = window.Audio.getPrefs();
+    isObject(prefs, 'prefs');
+    isBoolean(prefs.voice, 'voice');
+    isBoolean(prefs.sfx, 'sfx');
+    isBoolean(prefs.ambience, 'ambience');
+    isString(prefs.melody, 'melody');
+  });
+
+  test('setVoice(true) atualiza preferência', function () {
+    window.Audio.setVoice(true);
+    var prefs = window.Audio.getPrefs();
+    equal(prefs.voice, true, 'voice ativada');
+    window.Audio.setVoice(false);
+  });
+
+  test('setSfx(true) atualiza preferência', function () {
+    window.Audio.setSfx(true);
+    var prefs = window.Audio.getPrefs();
+    equal(prefs.sfx, true, 'sfx ativado');
+    window.Audio.setSfx(false);
+  });
+
+  test('setAmbience(true) atualiza preferência', function () {
+    window.Audio.setAmbience(true);
+    var prefs = window.Audio.getPrefs();
+    equal(prefs.ambience, true, 'ambience ativada');
+    window.Audio.setAmbience(false);
+  });
+
+  test('setMelody com id válido atualiza; id inválido não altera', function () {
+    window.Audio.setMelody('caminho');
+    equal(window.Audio.getPrefs().melody, 'caminho', 'melody caminho');
+    var okInvalid = window.Audio.setMelody('melodia-inexistente');
+    equal(okInvalid, false, 'retorna false para id inválido');
+  });
+
+  test('playSfx aceita todos os nomes conhecidos', function () {
+    var names = ['success', 'error', 'achievement', 'badge', 'badgeWrong',
+                 'unlock', 'advance', 'complete', 'boss'];
+    for (var i = 0; i < names.length; i++) {
+      try { window.Audio.playSfx(names[i]); } catch (e) {
+        fail('playSfx("' + names[i] + '") lançou: ' + e.message);
+      }
+    }
+  });
+
+  test('speak e stopSpeak não lançam', function () {
+    try {
+      window.Audio.speak('Teste de fala');
+      window.Audio.stopSpeak();
+    } catch (e) {
+      fail('speak/stopSpeak lançaram: ' + e.message);
+    }
+    ok(true, 'não lançaram');
+  });
+
+  test('speakAfterSfx não lança', function () {
+    try {
+      window.Audio.speakAfterSfx('success', 'Teste');
+    } catch (e) {
+      fail('speakAfterSfx lançou: ' + e.message);
+    }
+    ok(true, 'não lançou');
+  });
+
+  /* ============================================================
+     TESTES — accessibility.js
+     ============================================================ */
+
+  section('accessibility.js — Painel de acessibilidade');
+
+  test('window.A11y existe com API pública', function () {
+    exists(window.A11y, 'A11y');
+    isObject(window.A11y, 'A11y');
+    isString(window.A11y.VERSION, 'A11y.VERSION');
+  });
+
+  test('A11y tem todos os métodos esperados', function () {
+    var methods = ['init', 'reset', 'openPanel', 'closePanel',
+                   'isPanelOpen', 'getPrefs'];
+    for (var i = 0; i < methods.length; i++) {
+      ok(typeof window.A11y[methods[i]] === 'function',
+         'A11y.' + methods[i] + ' deve ser função');
+    }
+  });
+
+  test('A11y.getPrefs retorna preferências com chaves esperadas', function () {
+    var prefs = window.A11y.getPrefs();
+    isObject(prefs, 'prefs');
+    isBoolean(prefs.voice, 'voice');
+    isBoolean(prefs.sfx, 'sfx');
+    isBoolean(prefs.ambience, 'ambience');
+    isString(prefs.melody, 'melody');
+    isString(prefs.theme, 'theme');
+    isBoolean(prefs.contrast, 'contrast');
+    isBoolean(prefs.motion, 'motion');
+    isNumber(prefs.fontScale, 'fontScale');
+  });
+
+  test('fontScale entre 1 e 5', function () {
+    var prefs = window.A11y.getPrefs();
+    ok(prefs.fontScale >= 1 && prefs.fontScale <= 5,
+       'fontScale ' + prefs.fontScale + ' fora do intervalo 1-5');
+  });
+
+  test('theme é light ou dark', function () {
+    var prefs = window.A11y.getPrefs();
+    ok(prefs.theme === 'light' || prefs.theme === 'dark',
+       'theme inválido: ' + prefs.theme);
+  });
+
+  test('isPanelOpen retorna boolean', function () {
+    isBoolean(window.A11y.isPanelOpen(), 'isPanelOpen');
+  });
+
+  test('openPanel e closePanel não lançam', function () {
+    try {
+      window.A11y.openPanel();
+      window.A11y.closePanel();
+    } catch (e) {
+      fail('openPanel/closePanel lançaram: ' + e.message);
+    }
+    ok(true, 'não lançaram');
+  });
+
+  test('A11y.reset não lança', function () {
+    try { window.A11y.reset(); } catch (e) {
+      fail('reset lançou: ' + e.message);
+    }
+    ok(true, 'não lançou');
+  });
+
+  /* ============================================================
+     TESTES — Integração
+     ============================================================ */
+
+  section('Integração — Ciclo completo do jogo');
+
+  test('Ciclo: responder todas as missões -> boss desbloqueado', function () {
+    resetGame();
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      var idx = -1;
+      for (var j = 0; j < m.options.length; j++) {
+        if (m.options[j].correct) { idx = j; break; }
+      }
+      window.Game.completeMission(m.id, idx);
+    }
+    ok(window.Game.isBossUnlocked(), 'boss desbloqueado');
+  });
+
+  test('Ciclo: todas as conquistas de missão ficam desbloqueadas', function () {
+    resetGame();
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      var idx = -1;
+      for (var j = 0; j < m.options.length; j++) {
+        if (m.options[j].correct) { idx = j; break; }
+      }
+      window.Game.completeMission(m.id, idx);
+    }
+    var state = window.Game.getState();
+    for (var k = 0; k < window.MISSIONS.length; k++) {
+      var achId = window.MISSIONS[k].achievement;
+      ok(state.achievements.indexOf(achId) !== -1,
+         'conquista ' + achId + ' deve estar desbloqueada');
+    }
+  });
+
+  test('Ciclo: 1ª tentativa em todas as missões -> aura máxima', function () {
+    resetGame();
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      var idx = -1;
+      for (var j = 0; j < m.options.length; j++) {
+        if (m.options[j].correct) { idx = j; break; }
+      }
+      window.Game.completeMission(m.id, idx);
+    }
+    var s = window.Game.getState();
+    equal(s.aura, 160, 'aura máxima de 16 missões');
+  });
+
+  test('Ciclo: game.getState reflete level avançado', function () {
+    resetGame();
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      var m = window.MISSIONS[i];
+      var idx = -1;
+      for (var j = 0; j < m.options.length; j++) {
+        if (m.options[j].correct) { idx = j; break; }
+      }
+      window.Game.completeMission(m.id, idx);
+    }
+    var s = window.Game.getState();
+    ok(s.level >= 4, 'level avançou após 16000 XP (level=' + s.level + ')');
+  });
+
+  test('Ciclo: reset limpa progresso, mas preserva prefs de áudio', function () {
+    resetGame();
+    window.Audio.setVoice(true);
+    window.Audio.setSfx(true);
+    window.Audio.setMelody('brisa');
+
+    var m = window.Game.findMission(1);
+    var idx = -1;
+    for (var i = 0; i < m.options.length; i++) {
+      if (m.options[i].correct) { idx = i; break; }
+    }
+    window.Game.completeMission(1, idx);
+    window.Game.reset();
+
+    var s = window.Game.getState();
+    equal(s.aura, 0, 'aura zerada');
+    equal(s.xp, 0, 'xp zerado');
+
+    var prefs = window.Audio.getPrefs();
+    equal(prefs.voice, true, 'prefs de áudio preservadas (voice)');
+    equal(prefs.melody, 'brisa', 'prefs de áudio preservadas (melody)');
+
+    window.Audio.setVoice(false);
+    window.Audio.setSfx(false);
+  });
+
+  test('Ciclo: acessibilidade preserva prefs em localStorage', function () {
+    var before = window.A11y.getPrefs();
+    isNumber(before.fontScale, 'fontScale presente');
+    ok(before.fontScale >= 1 && before.fontScale <= 5, 'fontScale válido');
+  });
+
+  test('Ciclo: theme.trails tem exatamente as trilhas usadas em missions', function () {
+    var usedTrails = {};
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      usedTrails[window.MISSIONS[i].trail] = true;
+    }
+    Object.keys(usedTrails).forEach(function (trailId) {
+      exists(window.THEME.trails[trailId],
+             'trilha "' + trailId + '" usada em missions mas ausente em theme.trails');
+    });
+  });
+
+  test('Ciclo: theme.characters tem exatamente os characters usados em missions', function () {
+    var usedChars = {};
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      usedChars[window.MISSIONS[i].character] = true;
+    }
+    if (window.BOSS) usedChars[window.BOSS.character] = true;
+    Object.keys(usedChars).forEach(function (charId) {
+      exists(window.THEME.characters[charId],
+             'character "' + charId + '" usado em missions mas ausente em theme.characters');
+    });
+  });
+
+  test('Ciclo: todas as conquistas referenciadas existem em ACHIEVEMENTS', function () {
+    var ids = window.ACHIEVEMENTS.map(function (a) { return a.id; });
+    for (var i = 0; i < window.MISSIONS.length; i++) {
+      includes(ids, window.MISSIONS[i].achievement,
+               'missão ' + window.MISSIONS[i].id);
+    }
+    if (window.BOSS && window.BOSS.achievement) {
+      includes(ids, window.BOSS.achievement, 'boss-final');
+    }
+  });
+
+  test('Ciclo: navegação entre telas do App (screens)', function () {
+    isString(window.THEME.screens.mapTitle, 'mapTitle');
+    isString(window.THEME.screens.glossaryTitle, 'glossaryTitle');
+    isString(window.THEME.screens.achievementsTitle, 'achievementsTitle');
+    isString(window.THEME.screens.howtoTitle, 'howtoTitle');
+  });
+
+  /* ============================================================
+     RUNNER
+     ============================================================ */
+
+  function runAll() {
+    results.total = 0;
+    results.passed = 0;
+    results.failed = 0;
+    results.startTime = performance.now();
+
+    for (var i = 0; i < TESTS.length; i++) {
+      var t = TESTS[i];
+      results.total++;
+      try {
+        t.fn();
+        t.passed = true;
+        t.error = null;
+        results.passed++;
+      } catch (e) {
+        t.passed = false;
+        t.error = e && e.message ? e.message : String(e);
+        results.failed++;
+      }
+    }
+
+    results.endTime = performance.now();
+    renderResults();
+  }
+
+  function renderResults() {
+    var totalEl = document.getElementById('sum-total');
+    var passedEl = document.getElementById('sum-passed');
+    var failedEl = document.getElementById('sum-failed');
+    var timeEl = document.getElementById('sum-time');
+
+    totalEl.textContent = results.total;
+    passedEl.textContent = results.passed;
+    failedEl.textContent = results.failed;
+    timeEl.textContent = Math.round(results.endTime - results.startTime) + ' ms';
+
+    var container = document.getElementById('results');
+    container.innerHTML = '';
+
+    for (var i = 0; i < results.sections.length; i++) {
+      var s = results.sections[i];
+      var sectionPassed = 0;
+      for (var k = 0; k < s.tests.length; k++) {
+        if (s.tests[k].passed) sectionPassed++;
+      }
+      var sectionFailed = s.tests.length - sectionPassed;
+
+      var sectionEl = document.createElement('div');
+      sectionEl.className = 'test-section ' +
+        (sectionFailed === 0 ? 'section-ok' : 'section-fail');
+
+      var titleEl = document.createElement('h2');
+      titleEl.textContent = s.name;
+
+      var badge = document.createElement('span');
+      badge.className = 'badge';
+      badge.textContent = sectionPassed + '/' + s.tests.length;
+      titleEl.appendChild(badge);
+
+      sectionEl.appendChild(titleEl);
+
+      var list = document.createElement('ul');
+      list.className = 'test-list';
+
+      for (var j = 0; j < s.tests.length; j++) {
+        var t = s.tests[j];
+
+        var item = document.createElement('li');
+        item.className = 'test-item ' + (t.passed ? 'pass' : 'fail');
+
+        var icon = document.createElement('span');
+        icon.className = 'icon';
+        icon.textContent = t.passed ? '✅' : '❌';
+        icon.setAttribute('aria-hidden', 'true');
+
+        var content = document.createElement('div');
+        content.className = 'content';
+
+        var name = document.createElement('div');
+        name.className = 'name';
+        name.textContent = t.name;
+        content.appendChild(name);
+
+        if (!t.passed && t.error) {
+          var details = document.createElement('div');
+          details.className = 'details';
+          details.textContent = '⚠ ' + t.error;
+          content.appendChild(details);
+        }
+
+        item.appendChild(icon);
+        item.appendChild(content);
+        list.appendChild(item);
+      }
+
+      sectionEl.appendChild(list);
+      container.appendChild(sectionEl);
+    }
+
+    if (results.failed === 0 && results.total > 0) {
+      var successBox = document.createElement('div');
+      successBox.className = 'test-section section-ok';
+      successBox.innerHTML =
+        '<h2>🎉 Todos os testes passaram <span class="badge">' +
+        results.passed + '/' + results.total + '</span></h2>' +
+        '<p style="margin: 0; color: #2e8b57; font-weight: 600;">' +
+        'O LDI está consistente. Nenhuma regra do Prompt-Mestre v4.0 foi violada.' +
+        '</p>';
+      container.appendChild(successBox);
+    }
+  }
+
+  function init() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', onReady);
+    } else {
+      onReady();
+    }
+  }
+
+  function onReady() {
+    setTimeout(function () {
+      try {
+        runAll();
+      } catch (e) {
+        var container = document.getElementById('results');
+        if (container) {
+          container.innerHTML = '<div class="test-section section-fail">' +
+            '<h2>Erro fatal na suíte</h2>' +
+            '<p>' + (e && e.message ? e.message : String(e)) + '</p>' +
+            '</div>';
+        }
+      }
+    }, 150);
+  }
+
+  document.getElementById('btn-run').addEventListener('click', function () {
+    runAll();
+  });
+
+  document.getElementById('btn-clear').addEventListener('click', function () {
+    if (window.Game && typeof window.Game.reset === 'function') {
+      window.Game.reset();
+      alert('Estado do jogo reiniciado. Clique em "Rodar todos os testes" novamente.');
+    }
+  });
+
+  init();
+
+})();
+</script>
+
+</body>
+</html>
