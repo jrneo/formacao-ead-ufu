@@ -1,0 +1,275 @@
+================================================================
+  LDI — FORMAÇÃO DE PROFESSORES AUTORES E FORMADORES PARA EaD
+  Universidade Federal de Uberlândia (UFU)
+  Centro de Educação a Distância (CEaD) / UAB
+================================================================
+
+Um Livro Digital Interativo (LDI) gamificado, construído a partir
+do Guia de Estudos do Curso de Formação de Professores Autores e
+Formadores para atuar em Cursos/Disciplinas na modalidade a
+Distância — UFU (2026).
+
+----------------------------------------------------------------
+  AUTOR E RESPONSÁVEL
+----------------------------------------------------------------
+
+Dirceu Nogueira de Sales Duarte Junior
+
+Base técnica: Guia de Estudos da UFU (2026), 232 páginas.
+
+Apoio no desenvolvimento: Inteligência Artificial generativa,
+utilizada como ferramenta de apoio à ideação, organização,
+redação, programação, revisão e desenvolvimento da experiência
+interativa.
+
+A responsabilidade pelo conteúdo, pelas decisões pedagógicas e
+pela validação das informações é integralmente do autor.
+
+----------------------------------------------------------------
+  REGISTRO PEDAGÓGICO
+----------------------------------------------------------------
+
+Andragógico — voltado a adultos em formação profissional
+continuada (professores universitários, tutores e coordenadores).
+
+----------------------------------------------------------------
+  COMO USAR
+----------------------------------------------------------------
+
+1. Abra o arquivo `index.html` em qualquer navegador moderno
+   (Chrome, Firefox, Edge ou Safari atualizados).
+
+   Você pode abrir diretamente (duplo clique) ou, se preferir,
+   servir localmente com um servidor HTTP simples:
+
+     python3 -m http.server 8000
+     # depois acesse http://localhost:8000
+
+2. A tela inicial oferece:
+
+   ▶️  Começar Jornada  (ou Continuar Jornada)
+   🎓  Como Jogar
+   🗺️  Mapa da Jornada
+   📖  Conteúdos
+   📚  Glossário
+   🏆  Conquistas
+   ♿  Acessibilidade
+   ℹ️  Sobre o LDI
+
+3. O botão ♿ no canto superior direito abre o painel de
+   acessibilidade a qualquer momento.
+
+----------------------------------------------------------------
+  MATERIAL DE REFERÊNCIA
+----------------------------------------------------------------
+
+O Guia de Estudos completo está disponível em:
+
+    docs/guia-formacao-professores-autores-formadores-ead-ufu.pdf
+
+Você pode acessá-lo:
+  • pela tela "Como Jogar" (botão "Acessar o Guia de Estudos");
+  • pela pasta `docs/` do projeto;
+  • pelo menu "Sobre o LDI".
+
+O nome do arquivo identifica o CURSO ESPECÍFICO (Formação de
+Professores Autores e Formadores para EaD — UFU), evitando
+confusão com outros cursos da UFU.
+
+----------------------------------------------------------------
+  COMO FUNCIONA A JORNADA
+----------------------------------------------------------------
+
+  • 16 situações + 1 Desafio Final (Boss).
+  • Cada situação apresenta um problema real do cotidiano de
+    professoras e professores universitários que vão ofertar
+    disciplinas ou cursos a distância.
+  • 4 alternativas por situação. Apenas 1 está alinhada ao Guia
+    de Estudos da UFU.
+  • As alternativas são EMBARALHADAS a cada abertura — não vale
+    decorar posição.
+
+----------------------------------------------------------------
+  FEEDBACK FORMATIVO
+----------------------------------------------------------------
+
+Ao escolher uma alternativa, o jogo NÃO revela imediatamente
+a resposta correta. Em vez disso, você recebe:
+
+  • o feedback específico da alternativa que escolheu;
+  • a dica sobre por que ela não está adequada;
+  • dois caminhos: tentar novamente ou ver a resposta.
+
+Após 3 tentativas erradas, a resposta é revelada
+automaticamente, com recompensa mínima.
+
+----------------------------------------------------------------
+  SISTEMA DE TENTATIVAS E RECOMPENSA
+----------------------------------------------------------------
+
+Você NÃO perde Progresso nem Experiência quando erra.
+Errar apenas reduz a recompensa da próxima tentativa:
+
+  1ª tentativa, acerto  →  10 Progresso  ·  1000 XP
+  2ª tentativa, acerto  →   7 Progresso  ·   700 XP
+  3ª tentativa, acerto  →   5 Progresso  ·   500 XP
+  Após 3 erros          →   3 Progresso  ·   300 XP
+
+  • A resposta é revelada automaticamente após 3 erros.
+  • Aura nunca fica negativa.
+  • Progresso e Experiência são cumulativos entre missões.
+
+----------------------------------------------------------------
+  ACESSIBILIDADE
+----------------------------------------------------------------
+
+O LDI foi construído com acessibilidade como requisito:
+
+  • Painel de acessibilidade completo (botão ♿ no topo direito).
+  • Leitura em voz alta (Web Speech API, pt-BR, com fallback
+    pt-*).
+  • Efeitos sonoros e melodia de fundo (Web Audio API).
+  • Modo escuro.
+  • Alto contraste (WCAG AAA).
+  • Redução de movimento.
+  • Escala de fonte (5 níveis: 15px a 22px).
+  • Navegação por teclado (Tab, Shift+Tab, Esc).
+  • Tooltips com foco de teclado.
+  • Anúncios ARIA live.
+  • Áreas de toque ≥ 44×44 px.
+
+----------------------------------------------------------------
+  PRIVACIDADE E PERSISTÊNCIA
+----------------------------------------------------------------
+
+  • Nenhum dado é enviado para servidores.
+  • Todo o progresso é salvo apenas no seu navegador
+    (localStorage, namespace `ufu-ead-ldi`).
+  • As preferências de áudio (voz, efeitos, melodia) ficam
+    salvas separadamente das preferências de acessibilidade
+    (tema, contraste, fonte).
+  • Reiniciar a jornada NÃO apaga suas preferências.
+
+----------------------------------------------------------------
+  TESTES
+----------------------------------------------------------------
+
+Para verificar a integridade do LDI:
+
+  1. Abra `docs/testes.html` no navegador.
+  2. Os testes rodam automaticamente.
+  3. Você verá o total de testes, quantos passaram e quantos
+     falharam.
+
+  Resultado esperado: TODOS os testes verdes.
+
+----------------------------------------------------------------
+  ESTRUTURA DE ARQUIVOS
+----------------------------------------------------------------
+
+formacao-ead-ufu/
+├── index.html
+├── LEIA-ME.txt
+├── css/
+│   ├── style.css
+│   └── accessibility.css
+├── js/
+│   ├── theme.js         (identidade: cores, personagens, textos)
+│   ├── missions.js      (16 missões)
+│   ├── boss.js          (Desafio Final com 3 decisões)
+│   ├── data.js          (glossário, conquistas, temas)
+│   ├── game.js          (motor de estado e progressão)
+│   ├── audio.js         (voz, efeitos e melodias)
+│   ├── accessibility.js (painel de acessibilidade)
+│   └── app.js           (orquestrador e renderização)
+├── assets/
+│   ├── images/
+│   │   ├── amanda.svg          (opcional — fallback: emoji)
+│   │   ├── carlos.svg          (opcional — fallback: emoji)
+│   │   ├── badge.svg           (opcional — fallback: emoji)
+│   │   ├── badge-wrong.svg     (opcional — fallback: emoji)
+│   │   └── logo.svg            (opcional)
+│   └── icons/
+│       └── favicon.svg
+└── docs/
+    ├── referencias.html
+    ├── testes.html
+    ├── CHANGELOG.md
+    ├── guia-publicacao.md
+    └── guia-formacao-professores-autores-formadores-ead-ufu.pdf
+                                        (adicionar manualmente)
+
+----------------------------------------------------------------
+  OBSERVAÇÕES SOBRE AS IMAGENS
+----------------------------------------------------------------
+
+O LDI funciona COMPLETAMENTE sem as imagens SVG em
+`assets/images/`. Se amanda.svg ou carlos.svg não existirem,
+o sistema mostra automaticamente um emoji temático (👩‍🏫 e
+👨‍🏫) no lugar do avatar. O mesmo acontece com os badges de
+acerto (🏅) e erro (❌).
+
+Se você tiver os arquivos SVG, basta colocá-los em
+`assets/images/` com os nomes exatos e eles aparecerão
+automaticamente. Nenhuma alteração no código é necessária.
+
+----------------------------------------------------------------
+  CONVENÇÃO DE NOMES EM `docs/`
+----------------------------------------------------------------
+
+Para evitar confusão com futuros materiais, adotamos nomes
+específicos e descritivos que identificam o CURSO:
+
+  • guia-formacao-professores-autores-formadores-ead-ufu.pdf
+      → Guia de Estudos do Curso de Formação de Professores
+        Autores e Formadores para EaD — UFU (2026)
+
+  • referencias.html      → Referências bibliográficas
+  • testes.html           → Suíte de testes automatizados
+  • CHANGELOG.md          → Histórico de versões do LDI
+  • guia-publicacao.md    → Instruções de publicação do LDI
+
+Se novos materiais forem adicionados no futuro, use nomes que
+identifiquem o CURSO e o ANO:
+
+  • guia-formacao-professores-autores-formadores-ead-ufu-2027.pdf
+  • manual-tutoria-formacao-professores-autores-formadores-ead-ufu.pdf
+  • material-complementar-formacao-professores-autores-formadores-ead-ufu.pdf
+
+EVITE nomes genéricos como:
+  fonte.pdf, guia.pdf, documento.pdf, material.pdf
+
+----------------------------------------------------------------
+  REQUISITOS TÉCNICOS
+----------------------------------------------------------------
+
+  • Navegador moderno com suporte a:
+      - ES5 (JavaScript)
+      - Web Speech API (opcional — para voz)
+      - Web Audio API (opcional — para efeitos)
+      - LocalStorage (para persistência)
+  • Não requer servidor backend.
+  • Não requer conexão com a internet (exceto para abrir o
+    Guia de Estudos em PDF, se preferir abri-lo no navegador).
+  • Nenhuma dependência externa, CDN ou biblioteca de terceiros.
+
+----------------------------------------------------------------
+  LICENÇA
+----------------------------------------------------------------
+
+Creative Commons — CC BY-NC-SA 4.0.
+
+----------------------------------------------------------------
+  SUPORTE
+----------------------------------------------------------------
+
+Em caso de dúvidas sobre o conteúdo técnico, consulte o Guia
+de Estudos da UFU disponível em:
+
+    docs/guia-formacao-professores-autores-formadores-ead-ufu.pdf
+
+Para questões sobre o funcionamento do LDI, consulte o autor.
+
+----------------------------------------------------------------
+  BOM ESTUDO!
+----------------------------------------------------------------
