@@ -1,0 +1,932 @@
+/* =============================================================
+ * accessibility.css — Formação de Professores Autores e Formadores para EaD
+ *
+ * Camada de acessibilidade carregada APÓS style.css. Ela:
+ *   1. Define os tokens para modo escuro (html.theme-dark)
+ *   2. Define os tokens para alto contraste (html.high-contrast)
+ *   3. Ajusta a escala tipográfica (html.font-scale-*)
+ *   4. Reduz/elimina animações (html.reduce-motion)
+ *
+ * Autor do projeto: Dirceu Nogueira de Sales Duarte Junior
+ * Apoio: Inteligência Artificial generativa (ferramenta de apoio)
+ * ============================================================= */
+
+/* -------------------------------------------------------------
+ * 1. ESCALA TIPOGRÁFICA
+ * ------------------------------------------------------------- */
+
+html.font-scale-1 { --font-scale: 0.9375; }  /* 15px */
+html.font-scale-2 { --font-scale: 1;      }  /* 16px (padrão) */
+html.font-scale-3 { --font-scale: 1.125;  }  /* 18px */
+html.font-scale-4 { --font-scale: 1.25;   }  /* 20px */
+html.font-scale-5 { --font-scale: 1.375;  }  /* 22px */
+
+/* -------------------------------------------------------------
+ * 2. MODO ESCURO (html.theme-dark)
+ * ------------------------------------------------------------- */
+
+html.theme-dark {
+  --color-bg:            #12151b;
+  --color-surface:       #1b2029;
+  --color-surface-alt:   #232a36;
+  --color-text:          #eef1f6;
+  --color-text-muted:    #a8b0bd;
+  --color-text-inverse:  #12151b;
+
+  --color-primary:       #7ba6d9;
+  --color-primary-dark:  #a8c6e8;
+  --color-primary-light: #4a76a8;
+
+  --color-secondary:     #4dbf7a;
+  --color-secondary-dark:#7ad199;
+
+  --color-accent:        #e6c34a;
+  --color-accent-dark:   #f0d76a;
+
+  --color-danger:        #e86a6a;
+  --color-danger-dark:   #f08a8a;
+  --color-success:       #4dbf7a;
+  --color-warning:       #f0a04a;
+
+  --color-purple:        #b28ddb;
+
+  --color-border:        #2f3743;
+  --color-border-strong: #4a5566;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+  color-scheme: dark;
+}
+
+/* ----- Header no modo escuro ----- */
+
+html.theme-dark #app-header {
+  background-color: #0d1a30;
+  color: #eef1f6;
+}
+
+html.theme-dark .brand-title {
+  color: #eef1f6;
+}
+
+html.theme-dark .brand-subtitle {
+  color: #a8b0bd;
+}
+
+/* HUD — garante texto claro sobre fundo escuro */
+html.theme-dark .hud-item {
+  background-color: rgba(255, 255, 255, 0.10);
+  color: #eef1f6;
+}
+
+html.theme-dark .hud-icon {
+  color: #e6c34a;
+}
+
+html.theme-dark .hud-label {
+  color: #c8d0dc;
+  opacity: 1;
+}
+
+html.theme-dark .hud-value {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+html.theme-dark .btn-icon {
+  background-color: rgba(255, 255, 255, 0.10);
+  color: #eef1f6;
+}
+
+html.theme-dark .btn-icon:hover,
+html.theme-dark .btn-icon:focus-visible {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+/* ----- Botões no modo escuro ----- */
+
+html.theme-dark .btn-primary {
+  background-color: var(--color-primary);
+  color: #12151b;
+  border-color: var(--color-primary);
+}
+
+html.theme-dark .btn-primary:hover,
+html.theme-dark .btn-primary:focus-visible {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+html.theme-dark .btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+html.theme-dark .btn-secondary:hover,
+html.theme-dark .btn-secondary:focus-visible {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text);
+}
+
+/* ----- Cards e superfícies no modo escuro ----- */
+
+html.theme-dark .mission-card,
+html.theme-dark .question-card,
+html.theme-dark .feedback-card,
+html.theme-dark .character-card,
+html.theme-dark .content-card,
+html.theme-dark .glossary-card,
+html.theme-dark .achievement-card,
+html.theme-dark .about-list,
+html.theme-dark .final-summary,
+html.theme-dark .stat-card,
+html.theme-dark .howto-step,
+html.theme-dark .howto-tips-section,
+html.theme-dark .scenario-card,
+html.theme-dark .home-intro,
+html.theme-dark .home-card {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+html.theme-dark .mission-card-title,
+html.theme-dark .mission-card-category,
+html.theme-dark .question-text,
+html.theme-dark .option-text,
+html.theme-dark .feedback-text,
+html.theme-dark .character-line,
+html.theme-dark .content-card-title,
+html.theme-dark .glossary-summary,
+html.theme-dark .glossary-definition,
+html.theme-dark .achievement-name,
+html.theme-dark .achievement-description,
+html.theme-dark .about-def,
+html.theme-dark .final-message,
+html.theme-dark .screen-header h1,
+html.theme-dark .screen-subtitle,
+html.theme-dark .home-title,
+html.theme-dark .home-subtitle,
+html.theme-dark .home-intro p,
+html.theme-dark .howto-step-title,
+html.theme-dark .howto-step-text {
+  color: var(--color-text);
+}
+
+html.theme-dark .mission-card-locked {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text-muted);
+}
+
+html.theme-dark .mission-card-locked .mission-card-title {
+  color: var(--color-text-muted);
+}
+
+html.theme-dark .mission-card-boss {
+  background: linear-gradient(135deg, #0a1520 0%, #1a2c44 100%);
+  color: #eef1f6;
+  border-color: var(--color-accent);
+}
+
+html.theme-dark .mission-card-boss .mission-card-title,
+html.theme-dark .mission-card-boss .mission-card-category,
+html.theme-dark .mission-card-boss .mission-card-number,
+html.theme-dark .mission-card-boss .mission-card-status {
+  color: #eef1f6;
+}
+
+html.theme-dark .mission-card-boss .mission-card-number {
+  color: var(--color-accent);
+}
+
+html.theme-dark .mission-card-boss .mission-card-icon {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ----- Alternativas no modo escuro ----- */
+
+html.theme-dark .option-btn {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+html.theme-dark .option-btn:hover,
+html.theme-dark .option-btn:focus-visible {
+  background-color: var(--color-surface-alt);
+  border-color: var(--color-primary);
+}
+
+html.theme-dark .option-letter {
+  color: var(--color-primary);
+}
+
+/* ----- Feedback no modo escuro ----- */
+
+html.theme-dark .feedback-correct {
+  background-color: rgba(77, 191, 122, 0.12);
+  border-color: var(--color-success);
+}
+
+html.theme-dark .feedback-correct .feedback-title {
+  color: var(--color-success);
+}
+
+html.theme-dark .feedback-correct-text {
+  color: var(--color-success);
+}
+
+html.theme-dark .feedback-incorrect {
+  background-color: rgba(232, 106, 106, 0.12);
+  border-color: var(--color-danger);
+}
+
+html.theme-dark .feedback-incorrect .feedback-title {
+  color: var(--color-danger);
+}
+
+html.theme-dark .application-note {
+  background-color: rgba(178, 141, 219, 0.12);
+}
+
+html.theme-dark .application-note-title {
+  color: var(--color-purple);
+}
+
+html.theme-dark .application-note-text {
+  color: var(--color-text);
+}
+
+html.theme-dark .howto-why {
+  background-color: rgba(230, 195, 74, 0.10);
+}
+
+html.theme-dark .howto-why-title {
+  color: var(--color-accent);
+}
+
+html.theme-dark .howto-why-text {
+  color: var(--color-text);
+}
+
+html.theme-dark .reward-card {
+  background: linear-gradient(135deg, #2a2410 0%, #3d3418 100%);
+  color: #eef1f6;
+  border-color: var(--color-accent);
+}
+
+html.theme-dark .reward-title {
+  color: var(--color-accent);
+}
+
+html.theme-dark .reward-list {
+  color: #eef1f6;
+}
+
+/* ----- Barras de progresso no modo escuro ----- */
+
+html.theme-dark .progress-bar {
+  background-color: var(--color-surface-alt);
+  border-color: var(--color-border);
+}
+
+html.theme-dark .progress-label {
+  color: #eef1f6;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* ----- Conquistas no modo escuro ----- */
+
+html.theme-dark .achievement-unlocked {
+  background: linear-gradient(135deg, var(--color-surface) 0%, #2a2410 100%);
+  border-color: var(--color-accent);
+}
+
+html.theme-dark .achievement-unlocked .achievement-icon {
+  background-color: rgba(230, 195, 74, 0.18);
+}
+
+html.theme-dark .achievement-locked {
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+}
+
+/* ----- Toasts no modo escuro ----- */
+
+html.theme-dark .toast {
+  background-color: #eef1f6;
+  color: #12151b;
+}
+
+html.theme-dark .toast-achievement,
+html.theme-dark .toast-unlock {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+  color: #12151b;
+}
+
+html.theme-dark .toast-info {
+  background-color: var(--color-primary);
+  color: #12151b;
+}
+
+/* ----- Painel de acessibilidade no modo escuro ----- */
+
+html.theme-dark #a11y-panel {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+html.theme-dark .a11y-header {
+  border-bottom-color: var(--color-border);
+}
+
+html.theme-dark .a11y-header h2 {
+  color: var(--color-text);
+}
+
+html.theme-dark .a11y-group-title {
+  color: var(--color-text-muted);
+}
+
+html.theme-dark .a11y-toggle {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+html.theme-dark .a11y-toggle:hover,
+html.theme-dark .a11y-toggle:focus-visible {
+  background-color: var(--color-surface-alt);
+}
+
+html.theme-dark .a11y-toggle[aria-pressed="true"],
+html.theme-dark .a11y-toggle.is-on {
+  background-color: rgba(123, 166, 217, 0.16);
+  border-color: var(--color-primary);
+}
+
+html.theme-dark .a11y-toggle[aria-pressed="true"] .toggle-state,
+html.theme-dark .a11y-toggle.is-on .toggle-state {
+  color: var(--color-primary);
+}
+
+html.theme-dark .a11y-audio-group {
+  background-color: var(--color-surface-alt);
+}
+
+html.theme-dark .a11y-select {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+html.theme-dark .a11y-select-label {
+  color: var(--color-text);
+}
+
+html.theme-dark .a11y-select-hint {
+  color: var(--color-text-muted);
+}
+
+html.theme-dark .a11y-font-controls .btn-secondary {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+html.theme-dark .a11y-font-controls .btn-secondary:hover:not(:disabled),
+html.theme-dark .a11y-font-controls .btn-secondary:focus-visible:not(:disabled) {
+  background-color: var(--color-surface-alt);
+}
+
+html.theme-dark .a11y-hint {
+  color: var(--color-text-muted);
+}
+
+html.theme-dark #btn-close-a11y {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text);
+}
+
+html.theme-dark #btn-close-a11y:hover,
+html.theme-dark #btn-close-a11y:focus-visible {
+  background-color: var(--color-border-strong);
+}
+
+/* ----- Tooltips no modo escuro ----- */
+
+html.theme-dark [data-tooltip]::after {
+  background-color: #eef1f6;
+  color: #12151b;
+}
+
+html.theme-dark [data-tooltip]::before {
+  border-bottom-color: #eef1f6;
+}
+
+/* ----- Skip-link no modo escuro ----- */
+
+html.theme-dark .skip-link {
+  background-color: var(--color-primary);
+  color: #12151b;
+}
+
+/* -------------------------------------------------------------
+ * 3. ALTO CONTRASTE (html.high-contrast)
+ * ------------------------------------------------------------- */
+
+html.high-contrast {
+  --color-bg:            #000000;
+  --color-surface:       #000000;
+  --color-surface-alt:   #1a1a1a;
+  --color-text:          #ffffff;
+  --color-text-muted:    #ffffff;
+  --color-text-inverse:  #000000;
+
+  --color-primary:       #ffff00;
+  --color-primary-dark:  #ffff00;
+  --color-primary-light: #ffff00;
+
+  --color-secondary:     #00ff00;
+  --color-secondary-dark:#00ff00;
+
+  --color-accent:        #ffff00;
+  --color-accent-dark:   #ffff00;
+
+  --color-danger:        #ff5555;
+  --color-danger-dark:   #ff5555;
+  --color-success:       #00ff00;
+  --color-warning:       #ffaa00;
+
+  --color-purple:        #ffff00;
+
+  --color-border:        #ffffff;
+  --color-border-strong: #ffffff;
+
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+
+  color-scheme: dark;
+}
+
+html.high-contrast body {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* Header */
+html.high-contrast #app-header {
+  background-color: #000000;
+  border-bottom: 2px solid #ffffff;
+  color: #ffffff;
+}
+
+html.high-contrast .brand-title,
+html.high-contrast .brand-subtitle {
+  color: #ffffff;
+}
+
+html.high-contrast .hud-item {
+  background-color: #000000;
+  border: 1px solid #ffff00;
+  color: #ffff00;
+}
+
+html.high-contrast .hud-icon,
+html.high-contrast .hud-value {
+  color: #ffff00;
+}
+
+html.high-contrast .hud-label {
+  color: #ffffff;
+}
+
+html.high-contrast .btn-icon {
+  background-color: #000000;
+  border: 2px solid #ffffff;
+  color: #ffff00;
+}
+
+html.high-contrast .btn-icon:hover,
+html.high-contrast .btn-icon:focus-visible {
+  background-color: #ffff00;
+  color: #000000;
+}
+
+/* Botões */
+html.high-contrast .btn-primary {
+  background-color: #ffff00;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+html.high-contrast .btn-primary:hover,
+html.high-contrast .btn-primary:focus-visible {
+  background-color: #000000;
+  color: #ffff00;
+}
+
+html.high-contrast .btn-secondary {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+html.high-contrast .btn-secondary:hover,
+html.high-contrast .btn-secondary:focus-visible {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+html.high-contrast .btn-danger {
+  background-color: #000000;
+  color: #ff5555;
+  border-color: #ff5555;
+}
+
+html.high-contrast .btn-danger:hover,
+html.high-contrast .btn-danger:focus-visible {
+  background-color: #ff5555;
+  color: #000000;
+}
+
+html.high-contrast .btn-link {
+  color: #ffff00;
+  text-decoration: underline;
+}
+
+/* Cartões e superfícies */
+html.high-contrast .mission-card,
+html.high-contrast .question-card,
+html.high-contrast .feedback-card,
+html.high-contrast .character-card,
+html.high-contrast .content-card,
+html.high-contrast .glossary-card,
+html.high-contrast .achievement-card,
+html.high-contrast .about-list,
+html.high-contrast .final-summary,
+html.high-contrast .stat-card,
+html.high-contrast .howto-step,
+html.high-contrast .howto-tips-section,
+html.high-contrast .scenario-card,
+html.high-contrast .application-note,
+html.high-contrast .home-intro,
+html.high-contrast .home-card {
+  background-color: #000000;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+html.high-contrast .mission-card-title,
+html.high-contrast .mission-card-category,
+html.high-contrast .mission-card-number,
+html.high-contrast .mission-card-status,
+html.high-contrast .question-text,
+html.high-contrast .option-text,
+html.high-contrast .feedback-text,
+html.high-contrast .character-line,
+html.high-contrast .content-card-title,
+html.high-contrast .glossary-summary,
+html.high-contrast .glossary-definition,
+html.high-contrast .achievement-name,
+html.high-contrast .achievement-description,
+html.high-contrast .about-def,
+html.high-contrast .final-message,
+html.high-contrast .screen-header h1,
+html.high-contrast .screen-subtitle,
+html.high-contrast .home-title,
+html.high-contrast .home-subtitle,
+html.high-contrast .home-intro p,
+html.high-contrast .howto-step-title,
+html.high-contrast .howto-step-text {
+  color: #ffffff;
+}
+
+/* Boss — remove gradiente */
+html.high-contrast .mission-card-boss {
+  background: #000000;
+  color: #ffffff;
+  border-color: #ffff00;
+}
+
+html.high-contrast .mission-card-boss .mission-card-title,
+html.high-contrast .mission-card-boss .mission-card-category,
+html.high-contrast .mission-card-boss .mission-card-number,
+html.high-contrast .mission-card-boss .mission-card-status {
+  color: #ffffff;
+}
+
+html.high-contrast .mission-card-boss .mission-card-number {
+  color: #ffff00;
+}
+
+html.high-contrast .mission-card-boss .mission-card-icon {
+  background-color: #1a1a1a;
+}
+
+/* Alternativas */
+html.high-contrast .option-btn {
+  background-color: #000000;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+html.high-contrast .option-btn:hover,
+html.high-contrast .option-btn:focus-visible {
+  background-color: #ffff00;
+  color: #000000;
+  border-color: #ffff00;
+}
+
+html.high-contrast .option-btn:hover .option-letter,
+html.high-contrast .option-btn:focus-visible .option-letter {
+  color: #000000;
+}
+
+html.high-contrast .option-letter {
+  color: #ffff00;
+}
+
+/* Feedback */
+html.high-contrast .feedback-correct {
+  background-color: #000000;
+  border-color: #00ff00;
+}
+
+html.high-contrast .feedback-correct .feedback-title {
+  color: #00ff00;
+}
+
+html.high-contrast .feedback-correct-text {
+  color: #00ff00;
+}
+
+html.high-contrast .feedback-incorrect {
+  background-color: #000000;
+  border-color: #ff5555;
+}
+
+html.high-contrast .feedback-incorrect .feedback-title {
+  color: #ff5555;
+}
+
+/* Recompensa */
+html.high-contrast .reward-card {
+  background: #000000;
+  border-color: #ffff00;
+  color: #ffffff;
+}
+
+html.high-contrast .reward-title,
+html.high-contrast .reward-list {
+  color: #ffff00;
+}
+
+/* Conquistas */
+html.high-contrast .achievement-unlocked {
+  border-color: #ffff00;
+}
+
+html.high-contrast .achievement-unlocked .achievement-icon {
+  background-color: #1a1a1a;
+}
+
+html.high-contrast .achievement-unlocked .achievement-status {
+  color: #00ff00;
+}
+
+/* Barras de progresso */
+html.high-contrast .progress-bar {
+  border: 2px solid #ffffff;
+  background-color: #1a1a1a;
+}
+
+html.high-contrast .progress-fill {
+  background: #ffff00;
+}
+
+html.high-contrast .progress-label {
+  color: #000000;
+  text-shadow: none;
+}
+
+/* Painel de acessibilidade */
+html.high-contrast #a11y-panel {
+  background-color: #000000;
+  border-left: 2px solid #ffffff;
+  color: #ffffff;
+}
+
+html.high-contrast .a11y-header {
+  border-bottom-color: #ffffff;
+}
+
+html.high-contrast .a11y-header h2 {
+  color: #ffffff;
+}
+
+html.high-contrast .a11y-group-title {
+  color: #ffff00;
+}
+
+html.high-contrast .a11y-toggle {
+  background-color: #000000;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+html.high-contrast .a11y-toggle:hover,
+html.high-contrast .a11y-toggle:focus-visible {
+  background-color: #1a1a1a;
+}
+
+html.high-contrast .a11y-toggle[aria-pressed="true"],
+html.high-contrast .a11y-toggle.is-on {
+  background-color: #ffff00;
+  color: #000000;
+  border-color: #ffff00;
+}
+
+html.high-contrast .a11y-toggle[aria-pressed="true"] .toggle-state,
+html.high-contrast .a11y-toggle.is-on .toggle-state {
+  color: #000000;
+}
+
+html.high-contrast .a11y-audio-group {
+  background-color: #1a1a1a;
+  border: 1px solid #ffffff;
+}
+
+html.high-contrast .a11y-select {
+  background-color: #000000;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+html.high-contrast .a11y-select-label {
+  color: #ffffff;
+}
+
+html.high-contrast .a11y-select-hint {
+  color: #ffffff;
+}
+
+html.high-contrast .a11y-font-controls .btn-secondary {
+  background-color: #000000;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+html.high-contrast .a11y-font-controls .btn-secondary:hover:not(:disabled),
+html.high-contrast .a11y-font-controls .btn-secondary:focus-visible:not(:disabled) {
+  background-color: #ffff00;
+  color: #000000;
+}
+
+html.high-contrast .a11y-hint {
+  color: #ffffff;
+}
+
+html.high-contrast #btn-close-a11y {
+  background-color: #000000;
+  color: #ffff00;
+  border: 2px solid #ffffff;
+}
+
+html.high-contrast #btn-close-a11y:hover,
+html.high-contrast #btn-close-a11y:focus-visible {
+  background-color: #ffff00;
+  color: #000000;
+}
+
+/* Toast */
+html.high-contrast .toast {
+  background-color: #ffff00;
+  color: #000000;
+  border: 2px solid #ffffff;
+}
+
+html.high-contrast .toast-achievement,
+html.high-contrast .toast-unlock,
+html.high-contrast .toast-info {
+  background-color: #ffff00;
+  color: #000000;
+}
+
+/* Tooltips */
+html.high-contrast [data-tooltip]::after {
+  background-color: #ffff00;
+  color: #000000;
+  border: 2px solid #ffffff;
+}
+
+html.high-contrast [data-tooltip]::before {
+  border-bottom-color: #ffff00;
+}
+
+/* Foco — mais grosso */
+html.high-contrast :focus-visible {
+  outline: 4px solid #ffff00;
+  outline-offset: 4px;
+}
+
+/* Erro */
+html.high-contrast .screen-error {
+  background-color: #000000;
+  border-color: #ff5555;
+}
+
+html.high-contrast .screen-error h1 {
+  color: #ff5555;
+}
+
+/* Skip-link */
+html.high-contrast .skip-link {
+  background-color: #ffff00;
+  color: #000000;
+}
+
+/* -------------------------------------------------------------
+ * 4. REDUÇÃO DE MOVIMENTO (html.reduce-motion)
+ * ------------------------------------------------------------- */
+
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  transition-delay: 0ms !important;
+  scroll-behavior: auto !important;
+}
+
+html.reduce-motion .screen {
+  animation: none !important;
+}
+
+html.reduce-motion .badge-overlay,
+html.reduce-motion .badge-overlay-inner,
+html.reduce-motion .badge-overlay-text {
+  animation: none !important;
+  opacity: 1;
+  transform: none;
+}
+
+html.reduce-motion .badge-overlay::before,
+html.reduce-motion .badge-overlay::after {
+  display: none;
+}
+
+html.reduce-motion #a11y-panel {
+  animation: none !important;
+}
+
+html.reduce-motion #a11y-backdrop {
+  animation: none !important;
+}
+
+html.reduce-motion .toast {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .badge-overlay::before,
+  .badge-overlay::after {
+    display: none;
+  }
+}
+
+/* -------------------------------------------------------------
+ * 5. AJUSTES PARA IMPRESSÃO
+ * ------------------------------------------------------------- */
+
+@media print {
+  html.theme-dark,
+  html.high-contrast {
+    --color-bg: #ffffff;
+    --color-surface: #ffffff;
+    --color-text: #000000;
+    --color-text-muted: #333333;
+    --color-primary: #000000;
+    --color-border: #cccccc;
+  }
+
+  html.theme-dark body,
+  html.high-contrast body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+}
